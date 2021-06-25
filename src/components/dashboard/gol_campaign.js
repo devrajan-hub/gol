@@ -1,5 +1,6 @@
 import React,{Component,useState} from 'react';
-import { NavLink,Link } from 'react-router-dom';
+import { NavLink,Link,useParams } from 'react-router-dom';
+// import { useParams } from "react-router";
 import Sidebar from './Sidebar';
 import addigolillustration from '../../../src/assets/images/gol_illustration.svg';
 import screenillstration from '../../../src/assets/images/landing_screen_illstration.svg';
@@ -9,9 +10,10 @@ import share from '../../../src/assets/images/share.svg';
 import copy from '../../../src/assets/images/copy.svg';
 import startscreen from '../../../src/assets/images/start_screen.png';
 
-const golcampaign = () => {
+const golcampaign = (props) => {
+    var camprowId =  props.campid;
     const startLanding = () =>{
-        window.location.href = '/custom-landing';
+        window.location.href = '/custom-landing/'+ props.campid;
     }
     return(
         <div className="gol-campaign">

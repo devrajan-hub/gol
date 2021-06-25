@@ -8,14 +8,44 @@ import addicon from '../../../src/assets/images/add_icon.svg';
 import '../../../src/assets/css/custom.css';
 
 const Sidebar = () =>{
-    useEffect(() => {
-        axios.get('https://viddey-backend.herokuapp.com/api/v1/campaigns').then(res =>{
-            console.log('asdgsed',res);
+    
+    const [items, setItems] = useState([]);
+    useEffect(() => {        
+        fetch("https://viddey-backend.herokuapp.com/api/v1/campaigns", {
+            "method": "GET",
+            "headers": {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
         })
-        .catch(err => {
-            console.log('errresulkt',err);
+        .then(response => response.json())
+        .then(response => {
+            setItems(response.payload);
         })
+        .catch(err => { console.log(err); 
+        });
+        // const result = await fetch('https://viddey-backend.herokuapp.com/api/v1/campaigns ',{
+        //     method:"GET",
+        //     headers:{
+        //         'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json',
+        //         'Access-Control-Allow-Origin': '*',
+        //         'Access-Control-Allow-Methods': 'true',
+        //         'Access-Control-Allow-Headers': '*',
+        //     },
+        //     body: JSON.stringify({
+        //         firstName, lastName, companyName, email, password
+        //     })
+        // })
     })
+    // console.log('itemsdg',items);
+
+    const logout = () =>{
+        localStorage.clear();
+        window.location.href = '/';
+    }
 
     return(
         <div className="col-md-12 sidebar pd-left0 pd-right0">
@@ -39,9 +69,16 @@ const Sidebar = () =>{
                             <img src={addicon} /><NavLink to='/campaign'>New campaign</NavLink>
                         </li>
                         <hr className="bottomborder"></hr>
-                        <li>
+                        {items.map(item => (
+                            //  postlink = `/camp-setting/${item.id}`;
+                            <li key={item.id}>
+                                {/* <NavLink to={`/camp-setting/${item.id}`}>{item.name}</NavLink> */}
+                                <NavLink to={{ pathname: "/camp-setting", data: item.id }}>{item.name}</NavLink>
+                            </li>
+                        ))}
+                        {/* <li>
                             <NavLink to='/camp-setting'>Campaign Setting</NavLink>
-                        </li>
+                        </li> */}
                     </ul>
                     
                     <ul className="bottommenu">
@@ -49,7 +86,7 @@ const Sidebar = () =>{
                             <NavLink to='/account-setting'>Account Setting <span>PRO</span></NavLink>
                         </li>
                         <li>
-                            <NavLink to='/'>Log Out</NavLink>
+                            <NavLink to='/' onClick={logout}>Log Out</NavLink>
                         </li>
                     </ul>
                 </div>   

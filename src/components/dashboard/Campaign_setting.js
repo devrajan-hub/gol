@@ -2,7 +2,8 @@ import React from 'react';
 import Sidebar from './Sidebar';
 import Golcampaign from './gol_campaign';
 import Campaddons from './Campaign_addons';
-const Campaignsetting = () => {
+const Campaignsetting = (props) => {
+    const dataid  = props.location.data;
     return(
         <div className="col-md-12">
             <div className="row">
@@ -22,7 +23,7 @@ const Campaignsetting = () => {
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="golcampaign" role="tabpanel" aria-labelledby="home-tab">
-                                <Golcampaign />          
+                                <Golcampaign campid={dataid} />          
                             </div>
                             <div class="tab-pane fade" id="addtab" role="tabpanel" aria-labelledby="profile-tab">
                                 <Campaddons />

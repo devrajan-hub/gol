@@ -1,10 +1,29 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import {Navlink,Link} from 'react-router-dom';
 import Sidebar from '../dashboard/Sidebar';
 import picicon from '../../assets/images/pic_icon.svg';
 import defaultimage from '../../assets/images/default-image.jpg';
 
 const MarketingResources = () => {
+    // const [items, setItems] = useState([]);
+    // useEffect(() => {
+    //     fetch("https://viddey-backend.herokuapp.com/api/v1/articles", {
+    //         "method": "GET",
+    //         "headers": {
+    //             'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         }
+    //     })
+    //     .then(response => response.json())
+    //     .then(response => {
+    //         console.log('marketingresponse',response);
+    //         setItems(response.payload);
+    //     })
+    //     .catch(err => { console.log(err); 
+    //     });
+    // });
+
     var indents = [];
     for (var i = 0; i < 8; i++) {
         indents.push(<div className='col-md-3 marketing-block' key={i}>

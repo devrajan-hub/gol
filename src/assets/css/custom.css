@@ -2153,3 +2153,26 @@ input::placeholder {
       color:#8354FF;
       text-decoration: none !important;
   }
+  .greytext{
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 19px;
+    text-align: center;
+    text-decoration-line: underline;
+    color: #C4C4C4;
+  }
+  .selfi-image img{
+      width:auto;
+      height: 500px;
+  }
+  .hidefile{
+      display:none;
+  }
+ 
+  .accpassword input{
+      border:unset;
+      width: 100%;
+  }
+  .accpassword input:hover,.accpassword input:focus-visible{
+    border:unset !important;
+  }

@@ -33,7 +33,7 @@ const Register = () => {
         const userdata = await result.json();
         if(userdata.payload.id){
             console.log('userdata',userdata);
-            history.push('/login');
+            history.push('/plans');
         }else{
             window.alert('Invalid Registration');
         }

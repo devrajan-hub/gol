@@ -1,8 +1,19 @@
 import React from 'react';
 import {Switch,Route} from 'react-router-dom';
+
+/*--PAGES--*/
+
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Chooseplan from '../pages/Chooseplan';
+import ForgetPassword from '../pages/ForgetPassword';
+import MarketingResources from '../pages/MarketingResources';
+import SingleMarketing from '../pages/Single_marketing';
+import AccountSetting from '../pages/AccountSetting';
+import ChangePassword from '../pages/ChangePassword';
+
+/*--DASHBOARD--*/
+
 import Dashborad from '../dashboard/Dashboard'
 import Campaign from '../dashboard/New_campaign'
 import Campaignsetting from '../dashboard/Campaign_setting';
@@ -10,10 +21,9 @@ import golcampaign from '../dashboard/gol_campaign';
 import customlanding from '../dashboard/Customize_landing';
 import Addfilter from '../dashboard/Add_filter';
 import Addsound from '../dashboard/Add_sound';
-import MarketingResources from '../pages/MarketingResources';
-import SingleMarketing from '../pages/Single_marketing';
-import AccountSetting from '../pages/AccountSetting';
-import ChangePassword from '../pages/ChangePassword';
+
+/*--ADMIN--*/
+
 import AdminDashboard from '../admin/dashboard/Dasboard';
 import Company from '../admin/dashboard/Company';
 import CampaignPlan from '../admin/dashboard/CampaignPlan';
@@ -22,6 +32,8 @@ import AddArticle from '../admin/dashboard/AddArticle';
 import SongsLibrary from '../admin/dashboard/SongsLibrary';
 import AddSound from '../admin/dashboard/AddSound';
 import FilterLibrary from '../admin/dashboard/FilterLibrary';
+
+
 const Routes = () => {
     return(
         <section>
@@ -33,13 +45,14 @@ const Routes = () => {
                 <Route path='/campaign' component={Campaign} />
                 <Route path='/camp-setting' component={Campaignsetting} />
                 <Route path='/golcampaign' component={golcampaign} />
-                <Route path='/custom-landing' component={customlanding} />
+                <Route path='/custom-landing/:id' component={customlanding} />
                 <Route path='/add-filter' component={Addfilter} />
                 <Route path='/add-sound' component={Addsound} />
                 <Route path='/marketing-resources' component={MarketingResources} />
                 <Route path='/single-marketing' component={SingleMarketing} />
                 <Route path='/account-setting' component={AccountSetting} />
                 <Route path='/change-password' component={ChangePassword} />
+                <Route path='/forget-password' component={ForgetPassword} />
                 
                 {/* admin */}    
 

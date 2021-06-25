@@ -85,6 +85,14 @@ $(document).ready(function () {
         console.log('dsfdsvgdsvdfs');
         $('.upload_sound').get(0).click();	
     });
+    $('.logoupload').click(function(){
+        console.log('dsfdsvgdsvdfsdf');
+        $('.upload_logo').get(0).click();	
+    });
+    $('.uploadbgimage').click(function(){
+        console.log('dsfdsvgdsvdfsdf');
+        $('#upload_bgimg').get(0).click();	
+    });
     $('.add-data-capture').click(function(){
         $('#data-capture-list').append('<div class="formcheck"><label class="checkbox-container" for="newques">Postal code<input type="checkbox" id="newques" value="option1" /><span class="checkmark"></span></label><input type="text" id="newdata" value="" /><span class="addcapture">Add</span></div>');
     });

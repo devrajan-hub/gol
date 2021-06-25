@@ -1,6 +1,8 @@
 import React,{useState} from 'react';
+import {Navlink,Link, useHistory, Redirect} from 'react-router-dom';
 import Sidebar from './Sidebar';
 const Compaign = () => {
+    const history = useHistory();
     const[campaign,setUser] = useState({
         name:""
     });
@@ -15,17 +17,27 @@ const Compaign = () => {
     const createCampaign = async(e) =>{
         e.preventDefault();
         const{name} = campaign;
+        console.log('campname',name);
         const result = await fetch('https://viddey-backend.herokuapp.com/api/v1/campaigns',{
             method : "POST",
             headers:{
-                'Content-Type': 'application/json'
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'true',
+                'Access-Control-Allow-Headers': '*',
             },
             body: JSON.stringify({
                 name
             })
         });
-        const userdata = await result.json();
-        console.log('campname', userdata);
+        const camdata = await result.json();
+        if(camdata.id){
+            history.push('/camp-setting');
+        }else{
+            window.alert('Invalid Registration');
+        }
     }
 
     return(

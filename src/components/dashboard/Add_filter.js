@@ -1,16 +1,35 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import Sidebar from '../dashboard/Sidebar';
 
 const Addfilter = () => {
-    var indents = [];
-    for (var i = 0; i < 12; i++) {
-        indents.push(<div className='col-md-2 filter-block' key={i}>
-            <div className="f_block">
-                <div className="filter_image"></div>
-                <h4>Filter Name</h4>
-            </div>
-        </div>);
-    }
+
+    const [items, setItems] = useState([]);
+    useEffect(() => {        
+        fetch("https://viddey-backend.herokuapp.com/api/v1/filters", {
+            "method": "GET",
+            "headers": {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            setItems(response.payload);
+        })
+        .catch(err => { console.log(err); 
+        });
+    })
+    // console.log('asfsafsagf',items);
+    // var indents = [];
+    // for (var i = 0; i < 12; i++) {
+    //     indents.push(<div className='col-md-2 filter-block' key={i}>
+    //         <div className="f_block">
+    //             <div className="filter_image"></div>
+    //             <h4>Filter Name</h4>
+    //         </div>
+    //     </div>);
+    // }
     return(
         <div className="col-md-12">
             <div className="row">
@@ -22,7 +41,16 @@ const Addfilter = () => {
                         <h1>Add filter</h1> 
                     </div>
                     <div className="filter col-md-12">
-                        <div className="row">{indents}</div>
+                        <div className="row">
+                        {items.map(item => (
+                            <div className='col-md-2 filter-block' key={item.id}>
+                                <div className="f_block">
+                                    <div className="filter_image"></div>
+                                    <h4>{item.name}</h4>
+                                </div>
+                            </div>      
+                        ))}
+                        </div>
                     </div>        
                 </div>        
             </div>    

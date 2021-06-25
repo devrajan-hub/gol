@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, Fragment, useState} from 'react';
 import {Navlink,Link} from 'react-router-dom';
 import Sidebar from '../dashboard/Sidebar';
 import { unsubscribePlanDialog } from '../../actions/accountAction';
@@ -6,12 +6,27 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import UnsubscribePlan from '../popups/UnsubscribePlan';
 
-const AccountSetting = ({
-    account:{
-        unsubscribeDialogOpen
-    },
-    unsubscribePlanDialog
-}) =>{
+const AccountSetting = ({ account:{ unsubscribeDialogOpen },  unsubscribePlanDialog }) =>{
+    const [items, setItems] = useState([]);
+    useEffect(() => {
+        var userid =   `${localStorage.getItem('userid')}`;
+        // console.log('userid',userid);
+        // fetch("https://viddey-backend.herokuapp.com/api/v1/users/"+userid, {
+        //     "method": "GET",
+        //     "headers": {
+        //         'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json'
+        //     }
+        // })
+        // .then(response => response.json())
+        // .then(response => {
+        //     setItems(response.payload);
+            
+        // })
+        // .catch(err => { console.log(err); 
+        // });
+    })
     return(
         <div className="col-md-12">
             <div className="row">
@@ -38,12 +53,12 @@ const AccountSetting = ({
                                 </div>
                                 <div className="form-group">
                                     <label>Email:</label>
-                                    <p>email.example@gmail.com</p>
+                                    <p>{items.email}</p>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-10">
+                                    <div class="form-group col-md-10 accpassword">
                                         <label>Password:</label>
-                                        <p>••••••••••••••••••••</p>
+                                        <p><input type="password" value={items.password} disabled/></p>
                                     </div>
                                     <div class="form-group col-md-2 plans-btn-block">
                                         <Link className="gradien-transparent-bg" to='/change-password'>Edit</Link>                         

@@ -1,6 +1,26 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import { NavLink,Link } from 'react-router-dom';
 const Soundslist = () => {
+
+    const [items, setItems] = useState([]);
+    useEffect(() => {        
+        fetch("https://viddey-backend.herokuapp.com/api/v1/sounds", {
+            "method": "GET",
+            "headers": {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            // console.log('efedfedfef',response);
+            setItems(response.payload);
+        })
+        .catch(err => { console.log(err); 
+        });
+    })
+    
     var indents = [];
     for (var i = 0; i < 12; i++) {
         indents.push(<div className='col-md-3 sound-block' key={i}>
@@ -36,7 +56,18 @@ const Soundslist = () => {
             </div>
             <div className="soundlist">    
                 <div className="sound-block col-md-12">
-                    <div className="row">{indents}</div>
+                    <div className="row">
+                    {/* {items.map(item => (
+                        <div className='col-md-3 sound-block' key={i}>
+                            <div className="s_block">
+                                <h2>Song name</h2>
+                                <p>Happy</p>
+                                <NavLink to='/' className="select-sound">Select</NavLink>
+                            </div>
+                        </div>      
+                    ))} */}
+                        {indents}
+                    </div>
                 </div> 
                 <div className="select-msg">
                     <div className="soundlist-msg">
