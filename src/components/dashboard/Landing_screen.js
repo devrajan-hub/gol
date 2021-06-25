@@ -54,21 +54,21 @@ const LandingScreen = (props) => {
         // formData.append("message", message);
         // formData.append("messageColor", messagecolor);
         // console.log('formData', message);
-        const headers = {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'true',
-            'Access-Control-Allow-Headers': '*',
-        };    
-        await axios.post(`https://viddey-backend.herokuapp.com/api/v1/campaigns/${camprowId}/landing-screen`, formData, headers ).then(res =>{
-            console.log('pakages',res);
-            // setItems(res.data.payload);
-        })
-        .catch(err => {
-            console.log('errresulkt',err);
-        })
+        // const headers = {
+        //     'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        //     'Content-Type': 'application/json',
+        //     'Accept': 'application/json',
+        //     'Access-Control-Allow-Origin': '*',
+        //     'Access-Control-Allow-Methods': 'true',
+        //     'Access-Control-Allow-Headers': '*',
+        // };    
+        // await axios.post(`https://viddey-backend.herokuapp.com/api/v1/campaigns/${camprowId}/landing-screen`, formData, headers ).then(res =>{
+        //     console.log('pakages',res);
+        //     // setItems(res.data.payload);
+        // })
+        // .catch(err => {
+        //     console.log('errresulkt',err);
+        // })
         // axios({
         //     method: 'post',
         //     url: 'https://viddey-backend.herokuapp.com/api/v1/campaigns/'+ camprowId +'/landing-screen',
@@ -88,21 +88,21 @@ const LandingScreen = (props) => {
         // const res = await axios.post('https://viddey-backend.herokuapp.com/api/v1/campaigns/7b82ccab-9ef0-427c-b924-3c22f8511d49/landing-screen', formData, headers);
         //  console.log('asgeededsdes',res);   
 
-        // const result = await fetch(`https://viddey-backend.herokuapp.com/api/v1/campaigns/${camprowId}/landing-screen`,{
-        //     method : "POST",
-        //     headers:{
-        //         'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        //         'Accept': 'application/json',
-        //         // 'Content-Type': 'application/json',
-        //         // 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-        //         'Content-Type': 'multipart/form-data',
-        //         'Access-Control-Allow-Origin': '*',
-        //         'Access-Control-Allow-Methods': 'true',
-        //         'Access-Control-Allow-Headers': '*',
-        //     },
-        //     body: formData
-        // });
-        // const landingScreenresult = await result.json();
+        const result = await fetch(`https://viddey-backend.herokuapp.com/api/v1/campaigns/${camprowId}/landing-screen`,{
+            method : "POST",
+            headers:{
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                // 'Content-Type': 'application/json',
+                // 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                'Content-Type': 'multipart/form-data',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'true',
+                'Access-Control-Allow-Headers': '*',
+            },
+            body: formData
+        });
+        const landingScreenresult = await result.json();
         // console.log('landingScreenresult',formData); 
     }
        
