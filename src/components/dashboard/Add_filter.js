@@ -3,7 +3,7 @@ import Sidebar from '../dashboard/Sidebar';
 
 const Addfilter = () => {
 
-    const [items, setItems] = useState([]);
+    const [items, setItems] =  useState([]);
     useEffect(() => {        
         fetch("https://viddey-backend.herokuapp.com/api/v1/filters", {
             "method": "GET",
