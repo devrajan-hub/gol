@@ -1,14 +1,35 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { NavLink,Link } from 'react-router-dom';
 import startscreen from '../../assets/images/start_screen.png';
 import addicon from '../../assets/images/addicon.svg';
 const DataCapture = () =>{
+    const [dataCapture, setDataCapture] = useState();
+    const changeDataCapture = (event) => {
+        if(event.target.checked){
+            setDataCapture(1);
+         } else {
+            setDataCapture(0);
+         }
+    }
+    console.log('dataCapture',dataCapture);
     return(
         <fieldset>
             <div className="col-md-12">
                 <div className="row">
                     <div className="col-md-7">
-                        <div className="data-capture">
+                        <div className="check-datacapture">
+                            <div className="check-capture data-capture-block">
+                                <h2>Data capture</h2>
+                                <div className="dash-detail">
+                                    <label class="switch">
+                                        <input type="checkbox" name="datacapture" onChange={changeDataCapture} value="0" />
+                                        <span class="slider round"></span>
+                                    </label>                 
+                                </div>
+                            </div>
+                            <button type="button" name="next-step" className="next-step btn btn-gradient" >Skip</button>    
+                        </div>    
+                        <div className={(dataCapture == 1) ? 'data-capture' : 'data-capture hideelement'}>
                             <div className="data-capture-block">
                                 <h2>1. Promo</h2>
                                 <p>Input your promo message</p>
@@ -58,7 +79,7 @@ const DataCapture = () =>{
                 </div>    
             </div>
             <div className="col-md-7">   
-                <input type="button" name="next-step" className="next-step btn btn-gradient" value="Save and Continue" ></input>
+                <input type="button" name="next-step" className="next-step btn btn-gradient" value="Save and Continue" />
             </div>    
         </fieldset>
     )

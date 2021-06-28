@@ -20,6 +20,13 @@ const Addfilter = () => {
         .catch(err => { console.log(err); 
         });
     })
+    const selectFilter = (e) => {
+        var elem = document.getElementsByClassName("f_block"); 
+        var dataid = elem[0].getAttribute('data-id');
+        console.log('dataid',dataid);
+        elem[0].className += " activeblock";
+        localStorage.setItem('filterid', dataid);
+    }
     // console.log('asfsafsagf',items);
     // var indents = [];
     // for (var i = 0; i < 12; i++) {
@@ -44,7 +51,7 @@ const Addfilter = () => {
                         <div className="row">
                         {items.map(item => (
                             <div className='col-md-2 filter-block' key={item.id}>
-                                <div className="f_block">
+                                <div className="f_block" data-id={item.id} onClick={selectFilter}>
                                     <div className="filter_image"></div>
                                     <h4>{item.name}</h4>
                                 </div>

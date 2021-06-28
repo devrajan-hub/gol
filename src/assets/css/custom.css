@@ -618,7 +618,7 @@ Width: 180px;
     float: left;
     padding: 0 10px 0 0;
 }
-.background-image{
+.background-image,.uploadsoud{
     display: none;
 }
 .gol-image,.gol-content{
@@ -2175,4 +2175,43 @@ input::placeholder {
   }
   .accpassword input:hover,.accpassword input:focus-visible{
     border:unset !important;
+  }
+  .uploadsection .slider-price{
+    justify-content: space-between;
+    cursor:pointer;
+  }
+  .uploadsection .slider-price p{
+      margin:0px;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 20px;
+      color: #8354FF;
+  }
+  .mysoundlist{
+      margin-top: 25px;
+  }
+  .uploadsection .slider-price:hover{
+      background: #8354FF;
+      color:#fff !important;
+      border: unset;
+  }
+  .uploadsection .slider-price:hover p{
+      color:#fff;
+  } 
+  .mysoundlist .sound-block{
+      margin-top: 25px;
+  }
+  .brandurl,.brandurl:focus-visible,.brandurl:hover{
+      width:100%;
+      border: unset !important;
+  }
+  .check-capture{
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #CBCDE3;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+  }
+  .hideelement{
+      display:none;
   }

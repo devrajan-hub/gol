@@ -3,8 +3,9 @@ import { NavLink,Link } from 'react-router-dom';
 const Soundslist = () => {
 
     const [items, setItems] = useState([]);
+    const [soundid, setSoundId] = useState([]);
     useEffect(() => {        
-        fetch("https://viddey-backend.herokuapp.com/api/v1/sounds", {
+        fetch("https://viddey-backend.herokuapp.com/api/v1/sounds/library-sounds", {
             "method": "GET",
             "headers": {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -21,16 +22,25 @@ const Soundslist = () => {
         });
     })
     
-    var indents = [];
-    for (var i = 0; i < 12; i++) {
-        indents.push(<div className='col-md-3 sound-block' key={i}>
-            <div className="s_block">
-                <h2>Song name</h2>
-                <p>Happy</p>
-                <NavLink to='/' className="select-sound">Select</NavLink>
-            </div>
-        </div>);
+    const selectSound = (e) => {
+        var elem = document.getElementsByClassName("s_block"); 
+        var dataid = elem[0].getAttribute('data-id');
+        console.log('dataid',dataid);
+        elem[0].className += " activeblock";
+        setSoundId(dataid); 
+        localStorage.setItem('soundid', dataid);
     }
+
+    // var indents = [];
+    // for (var i = 0; i < 12; i++) {
+    //     indents.push(<div className='col-md-3 sound-block' key={i}>
+    //         <div className="s_block">
+    //             <h2>Song name</h2>
+    //             <p>Happy</p>
+    //             <NavLink to='/' className="select-sound">Select</NavLink>
+    //         </div>
+    //     </div>);
+    // }
     return(
         <div className="sounds">
             <div className="soundfilter col-md-7">
@@ -57,16 +67,16 @@ const Soundslist = () => {
             <div className="soundlist">    
                 <div className="sound-block col-md-12">
                     <div className="row">
-                    {/* {items.map(item => (
-                        <div className='col-md-3 sound-block' key={i}>
-                            <div className="s_block">
-                                <h2>Song name</h2>
-                                <p>Happy</p>
-                                <NavLink to='/' className="select-sound">Select</NavLink>
+                    {items.map(item => (
+                        <div className='col-md-3 sound-block'>
+                            <div className="s_block" id="soundblock" data-id={item.id} onClick={selectSound}>
+                                <h2>{item.name}</h2>
+                                <p>{item.category}</p>
+                                <NavLink to={item.soundURL} className="select-sound">Select</NavLink>
                             </div>
                         </div>      
-                    ))} */}
-                        {indents}
+                    ))}
+                        {/* {indents} */}
                     </div>
                 </div> 
                 <div className="select-msg">
@@ -74,7 +84,8 @@ const Soundslist = () => {
                         <p>First select a category, and set the mood from Mellow to Hype</p>
                     </div>    
                 </div>    
-            </div>    
+            </div>
+            <input type="hidden" id="addsound" value={soundid} />    
         </div>    
     )
 }

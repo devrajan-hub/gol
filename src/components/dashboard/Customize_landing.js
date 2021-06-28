@@ -35,9 +35,9 @@ const Customizelanding = (props) =>{
                     <div class="customize-landing">
                         <div class="custom-landing-fields">
                             <form id="form" enctype="multipart/form-data">
-                                <LandingScreen campid={campaignId} />            
+                                <LandingScreen campid={campaignId} />    
                                 <BrandedGol campid={campaignId} />
-                                <DataCapture campid={campaignId} />    
+                                <DataCapture campid={campaignId} />
                                 <PublishUrl campid={campaignId} />                         
                             </form>    
                         </div>
