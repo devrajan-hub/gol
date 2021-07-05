@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState} from 'react';
 import Sidebar from '../Sidebar';
 import {Navlink,Link} from 'react-router-dom';
 import searchicon from '../../../assets/images/search_icon.svg';
 
 const AdminDashboard = () => {
+    // const [items, setItems] = useState([]);
+    // useEffect(() => {
+
+    // })
     var indents = [];
     for (var i = 0; i < 12; i++) {
         indents.push(<tr>

@@ -1,4 +1,4 @@
-import React,{Component,useState} from 'react';
+import React,{Component,useState, useEffect} from 'react';
 import { NavLink,Link,useParams } from 'react-router-dom';
 // import { useParams } from "react-router";
 import Sidebar from './Sidebar';
@@ -9,15 +9,53 @@ import download from '../../../src/assets/images/download.svg';
 import share from '../../../src/assets/images/share.svg';
 import copy from '../../../src/assets/images/copy.svg';
 import startscreen from '../../../src/assets/images/start_screen.png';
+import Preview from '../../../src/assets/images/Preview.svg';
 
-const golcampaign = (props) => {
+const Golcampaign = (props) => {
     var camprowId =  props.campid;
+    const [itemsPage, setItemsPage] = useState([]);
+    const [items, setItems] = useState([]);
+    const [packageName, setIPackageName] = useState();
     const startLanding = () =>{
         window.location.href = '/custom-landing/'+ props.campid;
     }
+
+    useEffect(() => {
+        fetch('https://viddey-backend.herokuapp.com/api/v1/tickets', {
+            "method": "GET",
+            "headers": {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            // console.log('response',response);
+            setIPackageName(response.payload.packageType);
+        })
+        .catch(err => { console.log(err); 
+        });
+    })
+
+    useEffect(() => {
+        fetch(`https://viddey-backend.herokuapp.com/api/v1/campaigns/${camprowId}`, {
+            "method": "GET",
+            "headers": {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            setItems(response.payload);
+            setItemsPage(response.payload.pageName);
+        })
+        .catch(err => { console.log(err); 
+        });
+    })
+    console.log('camprowIditems',items);
+    // console.log('camprowIditems',items.brandedGOL.filter.name);
     return(
         <div className="gol-campaign">
-            <div className="gol-campaign-setting">
+            <div className={(itemsPage == null) ? 'gol-campaign-setting' : 'hideelement'}>
                 <div className="campaign-description">
                     <div className="row">
                         <div className="col-md-3">
@@ -48,16 +86,16 @@ const golcampaign = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="gol-campaign-data">   
+            <div className={(itemsPage == null) ? 'hideelement' :'gol-campaign-data'}>   
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className={packageName == 'PRO' ? 'col-md-6' :'hideelement'}>
                         <div className="qr-url-details">
                             <div className="qr-image">        
                                 <img src={qrcode} />
                             </div>
                             <div className="qr-heading">        
                                 <h4>QR code link:</h4>
-                                <p>www.remy.gifsoutloud.com</p>
+                                <p>{itemsPage}</p>
                             </div>
                             <div className="share-link">        
                                 <img className="linkimg" src={download} />
@@ -69,7 +107,7 @@ const golcampaign = (props) => {
                         <div className="url-detail-block">
                             <div className="url-details">        
                                 <h4>URL:</h4>
-                                <NavLink to='/www.remy.gifsoutloud.com'>www.remy.gifsoutloud.com</NavLink>
+                                <NavLink to='/www.remy.gifsoutloud.com'>{itemsPage}</NavLink>
                             </div>
                             <div className="share-link">        
                                 <img className="linkimg" src={copy} />
@@ -90,14 +128,14 @@ const golcampaign = (props) => {
                     </div>
                     <div className="col-md-6 gol-feature gol-feature-layout-right">
                     <div className="col-md-6">        
-                            <img src={startscreen} />
+                            <img src={Preview} />
                         </div>
                         <div className="col-md-6 gol-feature-text">        
                             <h2>Branded GOL</h2>
                             <span>Filter:</span>
-                            <p>Filter name</p>
+                            <p>{(items) ? items.brandedGOL.filter.name :''}</p>
                             <span>Sound::</span>
-                            <p>Sound name</p>
+                            <p>{items.brandedGOL.sound.name}</p>
                             <NavLink to="/" className="editlink">Edit</NavLink>
                         </div>
                     </div>
@@ -108,4 +146,4 @@ const golcampaign = (props) => {
     )
 }
 
-export default golcampaign;
+export default Golcampaign;

@@ -1,4 +1,4 @@
-import React, {Component,useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import { NavLink,Link, useHistory, useParams, Redirect } from 'react-router-dom';
 import Header from '../layout/Header';
 import PropTypes from 'prop-types';
@@ -12,22 +12,8 @@ function GetKey() {
 }
 // const Login = ({ auth:{isAuthenticated},loginUser }) => {
 const Login = () => {
-    
-    /*const [email, setUn] = useState('');
-	const [password, setUp] = useState('');
-	const [keyVal] = useState(GetKey());
-    const onSubmit = e => {
-		e.preventDefault();
-
-		const userdata = { email, password };
-        if (keyVal || typeof keyVal !== 'undefined') {
-			userdata.keyVal = keyVal;
-		}
-		loginUser(userdata);
-	};
-    if (isAuthenticated) {
-		return <Redirect to='/dashboard' />;
-	}*/
+    const [packageid, setIPackage] = useState('');
+   
     const history = useHistory();
     const [user, setUser] = useState({
         email:"", password:""
@@ -63,8 +49,25 @@ const Login = () => {
         if(userinfo.id){
             localStorage.setItem('token', userinfo.token);
             localStorage.setItem('userid', userinfo.id);
-            console.log('userinfo',userinfo);
-            history.push('/dashboard');
+            fetch('https://viddey-backend.herokuapp.com/api/v1/tickets', {
+            "method": "GET",
+            "headers": {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }
+            })
+            .then(response => response.json())
+            .then(response => {
+                console.log('response',response);
+                setIPackage(response.payload.id);
+                if(response.payload.id){
+                    history.push('/dashboard');
+                }else{
+                    history.push('/plans');
+                }
+            })
+            .catch(err => { console.log(err); 
+                history.push('/plans');
+            });
         }else{
             window.alert('Invalid Login');
         }

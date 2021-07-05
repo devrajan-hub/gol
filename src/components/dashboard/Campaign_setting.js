@@ -4,6 +4,7 @@ import Golcampaign from './gol_campaign';
 import Campaddons from './Campaign_addons';
 const Campaignsetting = (props) => {
     const dataid  = props.location.data;
+    console.log('props',props);
     return(
         <div className="col-md-12">
             <div className="row">

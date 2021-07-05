@@ -1,9 +1,13 @@
 import React from 'react';
+import { NavLink,Link, useHistory} from 'react-router-dom';
 import Sidebar from '../dashboard/Sidebar';
 import Soundslist from '../dashboard/Soundslist';
 import Uploadsound from '../dashboard/Upload_sound';
+import closeicon from '../../assets/images/close_icon.svg';
+
 
 const Addsound = () => {
+    let history = useHistory();
     return(
         <div className="col-md-12">
             <div className="row">
@@ -14,6 +18,9 @@ const Addsound = () => {
                     <div className="section-padding">
                     <div className="heading-sound-block">
                         <h2>Add sound</h2> 
+                        <div className="closebtn">
+                            <Link to="/" onClick={history.goBack}><img src={closeicon} /></Link>
+                        </div>
                     </div>
                     <div className="tab-design">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">

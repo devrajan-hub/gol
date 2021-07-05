@@ -35,9 +35,6 @@ const Chooseplan = () => {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'true',
-                'Access-Control-Allow-Headers': '*',
             },
             body: packagetype
         });

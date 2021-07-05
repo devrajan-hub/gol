@@ -1,7 +1,10 @@
 import React,{useEffect, useState} from 'react';
+import { NavLink,Link, useHistory} from 'react-router-dom';
 import Sidebar from '../dashboard/Sidebar';
+import closeicon from '../../assets/images/close_icon.svg';
 
 const Addfilter = () => {
+    let history = useHistory();
 
     const [items, setItems] =  useState([]);
     useEffect(() => {        
@@ -44,8 +47,13 @@ const Addfilter = () => {
                     <Sidebar />
                 </div>
                 <div className="col-md-10">
+                    <div className="section-padding">
                     <div className="heading-block">
                         <h1>Add filter</h1> 
+                        <div className="closebtn">
+                            <Link to="/" onClick={history.goBack}><img src={closeicon} /></Link>
+                        </div>
+                    </div>
                     </div>
                     <div className="filter col-md-12">
                         <div className="row">

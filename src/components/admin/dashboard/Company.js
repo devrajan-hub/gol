@@ -45,22 +45,26 @@ const Company = () => {
                         <div className="campdash-lists">
                             <ul>
                                 <li className="dash-list">
-                                    <div className="dashname">
-                                        <h4>Dashboard</h4>
-                                        <p>Monitor brand success</p>
-                                    </div>
-                                    <div className="dash-detail">
-                                        <img src={arrow} />                 
-                                    </div>    
+                                    <Link to='/company-dashboard' className="selectplan">
+                                        <div className="dashname">
+                                            <h4>Dashboard</h4>
+                                            <p>Monitor brand success</p>
+                                        </div>
+                                        <div className="dash-detail">
+                                            <img src={arrow} />                 
+                                        </div>
+                                    </Link>    
                                 </li>
                                 <li className="dash-list">
-                                    <div className="dashname">
-                                        <h4>Plan</h4>
-                                        <p>Starter</p>
-                                    </div>
-                                    <div className="dash-detail">
-                                        <img src={arrow} />                 
-                                    </div>    
+                                    <Link to='/campaign-plan' className="selectplan">
+                                        <div className="dashname">
+                                            <h4>Plan</h4>
+                                            <p>Starter</p>
+                                        </div>
+                                        <div className="dash-detail">
+                                            <img src={arrow} />                 
+                                        </div>
+                                    </Link>    
                                 </li>
                                 <li className="dash-list">
                                     <div className="dashname">

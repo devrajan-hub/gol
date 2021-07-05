@@ -33,7 +33,7 @@ const Register = () => {
         const userdata = await result.json();
         if(userdata.payload.id){
             console.log('userdata',userdata);
-            history.push('/plans');
+            history.push('/login');
         }else{
             window.alert('Invalid Registration');
         }
@@ -58,7 +58,7 @@ const Register = () => {
                                     <input type="text" className="form-control" name="firstName" id="firstname" value={user.firstname} onChange={handleInputs}  placeholder="First Name" />
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <input type="password" className="form-control" name="lastName" id="lastname" value={user.lastname} onChange={handleInputs} placeholder="Last Name" />
+                                    <input type="text" className="form-control" name="lastName" id="lastname" value={user.lastname} onChange={handleInputs} placeholder="Last Name" />
                                 </div>
                             </div>
                             <div className="form-group">

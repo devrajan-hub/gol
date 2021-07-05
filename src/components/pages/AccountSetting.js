@@ -8,24 +8,39 @@ import UnsubscribePlan from '../popups/UnsubscribePlan';
 
 const AccountSetting = ({ account:{ unsubscribeDialogOpen },  unsubscribePlanDialog }) =>{
     const [items, setItems] = useState([]);
+    const [packageName, setIPackageName] = useState();
+    useEffect(() => {
+        fetch('https://viddey-backend.herokuapp.com/api/v1/tickets', {
+            "method": "GET",
+            "headers": {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            // console.log('response',response);
+            setIPackageName(response.payload.packageType);
+        })
+        .catch(err => { console.log(err); 
+        });
+    })
     useEffect(() => {
         var userid =   `${localStorage.getItem('userid')}`;
         // console.log('userid',userid);
-        // fetch("https://viddey-backend.herokuapp.com/api/v1/users/"+userid, {
-        //     "method": "GET",
-        //     "headers": {
-        //         'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json'
-        //     }
-        // })
-        // .then(response => response.json())
-        // .then(response => {
-        //     setItems(response.payload);
-            
-        // })
-        // .catch(err => { console.log(err); 
-        // });
+        fetch("https://viddey-backend.herokuapp.com/api/v1/users/"+userid, {
+            "method": "GET",
+            "headers": {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            setItems(response.payload);
+        })
+        .catch(err => { console.log(err); 
+        });
     })
     return(
         <div className="col-md-12">
@@ -43,7 +58,7 @@ const AccountSetting = ({ account:{ unsubscribeDialogOpen },  unsubscribePlanDia
                                 <div class="form-row">
                                     <div class="form-group col-md-10">
                                         <label>Plan:</label>
-                                        <p>PRO</p>
+                                        <p>{packageName}</p>
                                     </div>
                                     <div class="form-group col-md-2 plans-btn-block">
                                         {/* <Link className="unsubscribe-btn" to='/'>Unsubscribe</Link>     */}
@@ -58,7 +73,8 @@ const AccountSetting = ({ account:{ unsubscribeDialogOpen },  unsubscribePlanDia
                                 <div class="form-row">
                                     <div class="form-group col-md-10 accpassword">
                                         <label>Password:</label>
-                                        <p><input type="password" value={items.password} disabled/></p>
+                                        {/* <p><input type="password" value={items.password} disabled/></p> */}
+                                        <p>***************</p>
                                     </div>
                                     <div class="form-group col-md-2 plans-btn-block">
                                         <Link className="gradien-transparent-bg" to='/change-password'>Edit</Link>                         

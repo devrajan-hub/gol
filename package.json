@@ -11,6 +11,7 @@
     "bootstrap-colorpicker": "^3.3.0",
     "btoa": "^1.2.1",
     "circular-json": "^0.5.9",
+    "dateformat": "^4.5.1",
     "form-data": "^4.0.0",
     "jquery": "^3.6.0",
     "js-cookie": "^2.2.1",

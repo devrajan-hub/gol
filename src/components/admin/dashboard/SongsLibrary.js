@@ -1,9 +1,27 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Sidebar from '../Sidebar';
 import { NavLink,Link } from 'react-router-dom';
 import addicon from '../../../assets/images/plus_icon.svg';
 
 const SongsLibrary = () =>{
+    const [items, setItems] = useState([]);
+    useEffect(() => {        
+        fetch("https://viddey-backend.herokuapp.com/api/v1/sounds/library-sounds", {
+            "method": "GET",
+            "headers": {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            // console.log('efedfedfef',response);
+            setItems(response.payload);
+        })
+        .catch(err => { console.log(err); 
+        });
+    })
     var indents = [];
     for (var i = 0; i < 12; i++) {
         indents.push(<div className='col-md-3 sound-block' key={i}>
@@ -49,14 +67,26 @@ const SongsLibrary = () =>{
                         </div>
                         <div className="soundlist">    
                             <div className="sound-block col-md-12">
-                                <div className="row"><div className="col-md-3 marketing-article">
-                                <div className="article-resorces">
-                                    <div className="article-block">
-                                        <Link to='/add-newsound'><img src={addicon} />
-                                        <p>Add a song</p></Link>        
+                                <div className="row">
+                                    <div className="col-md-3 marketing-article">
+                                        <div className="article-resorces">
+                                            <div className="article-block">
+                                                <Link to='/add-newsound'><img src={addicon} />
+                                                <p>Add a song</p></Link>        
+                                            </div>
+                                        </div>
                                     </div>
+                                    {items.map(item => (
+                                        <div className='col-md-3 sound-block' key={i}>
+                                            <div className="s_block">
+                                                <h2>{item.name}</h2>
+                                                <p>{item.category}</p>
+                                                <NavLink to={item.soundURL} className="select-sound">Delete</NavLink>
+                                            </div>
+                                        </div>      
+                                    ))}
+                                    {/* {indents} */}
                                 </div>
-                            </div>{indents}</div>
                             </div> 
                             {/* <div className="select-msg">
                                 <div className="soundlist-msg">

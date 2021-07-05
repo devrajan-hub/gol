@@ -2,15 +2,53 @@ import React, {useState} from 'react';
 import { NavLink,Link } from 'react-router-dom';
 import startscreen from '../../assets/images/start_screen.png';
 import addicon from '../../assets/images/addicon.svg';
-const DataCapture = () =>{
-    const [dataCapture, setDataCapture] = useState();
+import arrow from '../../assets/images/arrow.svg';
+import liveicon from '../../assets/images/liveicon.svg';
+const DataCapture = (props) =>{
+    var camprowId =  props.campid;
+    const [dataCaptureInput, setDataCaptureInput] = useState();
+    const [promoMsg, setPromoeMsg] = useState();
+    const [dataCapture, selectdataCapture] = useState();
+    const state = {captur : []}
     const changeDataCapture = (event) => {
         if(event.target.checked){
-            setDataCapture(1);
+            setDataCaptureInput(1);
          } else {
-            setDataCapture(0);
+            setDataCaptureInput(0);
          }
     }
+
+    const handlemessage = (e) =>{
+        setPromoeMsg(e.target.value);
+    }
+    var capdata = [];            
+    const handleCapture = (e) => {
+        //  value = e.target.value;
+        if(e.target.checked){
+            // state.captur.push(e.target.value);   
+            capdata.push(e.target.value);   
+        }else{
+            // state.captur.splice(e.target.value, 1);
+        }
+        // selectdataCapture(e.target.value);        
+    }
+
+    const saveDataCapture = async() =>{
+        var datacapture = JSON.stringify({dataCaptureIsOn:dataCaptureInput, message:promoMsg, data:capdata});
+        console.log('datacapture', datacapture);
+        const result = await fetch(`https://viddey-backend.herokuapp.com/api/v1/campaigns/${camprowId}/data-capture`,{
+            method : "POST",
+            headers:{
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json, text/plain',
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            // body: formData
+            body: datacapture
+        });
+        const brandedgolresult = await result.json();
+    }
+    
     console.log('dataCapture',dataCapture);
     return(
         <fieldset>
@@ -27,14 +65,16 @@ const DataCapture = () =>{
                                     </label>                 
                                 </div>
                             </div>
-                            <button type="button" name="next-step" className="next-step btn btn-gradient" >Skip</button>    
+                            <div class={(dataCaptureInput == 1) ? 'skipbtn hideelement' : 'skipbtn'}>
+                                <button type="button" name="next-step" className="next-step btn btn-gradient" >Skip</button>    
+                            </div>    
                         </div>    
-                        <div className={(dataCapture == 1) ? 'data-capture' : 'data-capture hideelement'}>
+                        <div className={(dataCaptureInput == 1) ? 'data-capture' : 'data-capture hideelement'}>
                             <div className="data-capture-block">
                                 <h2>1. Promo</h2>
                                 <p>Input your promo message</p>
                                 <div className="form-group">
-                                    <textarea className="form-control" name="message" placeholder="Message"></textarea>
+                                    <textarea className="form-control" name="message" onChange={handlemessage} placeholder="Message"></textarea>
                                 </div>
                             </div>
                             <div className="data-capture-block">
@@ -42,27 +82,27 @@ const DataCapture = () =>{
                                 <p className="promo-capture">Select the points you want to ask the user</p>
                                 <div id="data-capture-list">
                                     <label class="checkbox-container" for="email">Email
-                                        <input type="checkbox" id="email" value="option1" />
+                                        <input type="checkbox" id="email" value="email" onChange={handleCapture} />
                                         <span class="checkmark"></span>
                                     </label>
                                     <label class="checkbox-container" for="first-name">First name
-                                        <input type="checkbox" id="first-name" value="option1" />
+                                        <input type="checkbox" id="first-name" value="firstname" onChange={handleCapture} />
                                         <span class="checkmark"></span>
                                     </label>
                                     <label class="checkbox-container" for="last-name">Last name
-                                        <input type="checkbox" id="last-name" value="option1" />
+                                        <input type="checkbox" id="last-name" value="lastname" onChange={handleCapture} />
                                         <span class="checkmark"></span>
                                     </label>
                                     <label class="checkbox-container" for="dob">Date of birth
-                                        <input type="checkbox" id="dob" value="option1" />
+                                        <input type="checkbox" id="dob" value="dob" onChange={handleCapture} />
                                         <span class="checkmark"></span>
                                     </label>
                                     <label class="checkbox-container" for="phoneno">Phone number
-                                        <input type="checkbox" id="phoneno" value="option1" />
+                                        <input type="checkbox" id="phoneno" value="phone" onChange={handleCapture} />
                                         <span class="checkmark"></span>
                                     </label>
                                     <label class="checkbox-container" for="postalcode">Postal code
-                                        <input type="checkbox" id="postalcode" value="option1" />
+                                        <input type="checkbox" id="postalcode" value="postalcode" onChange={handleCapture} />
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -74,12 +114,17 @@ const DataCapture = () =>{
                         </div>
                     </div>
                     <div className="col-md-5">
-                        <img src={startscreen} />
+                        <div className="livebg">
+                            <img src={startscreen} />
+                            <div class="livebutton">
+                                <button class="download-btn gradien-transparent-bg"><img src={liveicon} />Live Page</button>
+                            </div>
+                        </div>
                     </div>    
                 </div>    
             </div>
-            <div className="col-md-7">   
-                <input type="button" name="next-step" className="next-step btn btn-gradient" value="Save and Continue" />
+            <div className={(dataCaptureInput == 1) ? 'col-md-7 datcapturebutton' : 'col-md-7 hideelement'}>   
+                <input type="button" name="next-step" className="next-step btn btn-gradient" onClick={saveDataCapture} value="Save and Continue" />
             </div>    
         </fieldset>
     )

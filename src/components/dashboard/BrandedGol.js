@@ -5,6 +5,7 @@ import arrow from '../../assets/images/arrow.svg';
 import melodyicon from '../../../src/assets/images/melody_icon.svg';
 import linkicon from '../../../src/assets/images/link_icon.svg';
 import startscreen from '../../assets/images/start_screen.png';
+import liveicon from '../../assets/images/liveicon.svg';
 const BrandedGol = (props) =>{
     var camprowId =  props.campid;
     const [brandurl, setBrandurl] = useState();
@@ -40,8 +41,8 @@ const BrandedGol = (props) =>{
         <fieldset>
             <div className="col-md-12">
                 <div className="row">
-                    <div className="col-md-7">
-                        <div className="branded-gol row">
+                    <div className="col-md-8">
+                        <div className="branded-gol">
                             <div className="col-md-12 branded-gol-block pd-right0 pd-left0">
                                 <NavLink to="/add-filter">
                                     <div className="col-md-3 gol-image">
@@ -90,12 +91,17 @@ const BrandedGol = (props) =>{
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-5">
+                    <div className="col-md-4">
+                    <div className="livebg">
                         <img src={startscreen} />
+                        <div class="livebutton">
+                            <button class="download-btn gradien-transparent-bg"><img src={liveicon} />Live Page</button>
+                        </div>
+                    </div>
                     </div>
                 </div>    
             </div>
-            <div className="col-md-7">   
+            <div className="col-md-7 golbutton">   
                 <input type="button" name="next-step" onClick={brandedGol} className="next-step btn btn-gradient" value="Save and Continue" ></input>
             </div>
         </fieldset>

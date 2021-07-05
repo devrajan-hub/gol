@@ -2,6 +2,8 @@ import React,{useState} from 'react';
 import { NavLink,Link } from 'react-router-dom';
 import uploadicon from '../../../src/assets/images/plus_icon.svg';
 import startscreen from '../../assets/images/start_screen.png';
+import arrow from '../../assets/images/arrow.svg';
+import liveicon from '../../assets/images/liveicon.svg';
 import axios from 'axios';
 // import  FormData from 'form-data';
 import $ from'jquery';
@@ -9,8 +11,10 @@ const LandingScreen = (props) => {
     var camprowId =  props.campid;
     console.log('camprowId',camprowId);
     const [selectedFile, setSelectedFile] = useState();
+    const [FileUrl, setFileUrl] = useState();
     const [bgColour, setBgColour] = useState();
     const [bgImage, setBgImage] = useState();
+    const [bgImageUrl, setBgUrl] = useState();
     const [overlay, setOverlay] = useState();
     const [overlaycolor, setOverlayColor] = useState();
     const [message, setSelectedmessage] = useState();
@@ -27,6 +31,7 @@ const LandingScreen = (props) => {
     const onFileChange = (event) => {
         const { files } = event.target;
         setSelectedFile(files);
+        setFileUrl(URL.createObjectURL(event.target.files[0]));
     // setFileExtParams(() => getFileExtParams(files[0].type));
     };
     const changeBgColor = (e) => {
@@ -35,6 +40,7 @@ const LandingScreen = (props) => {
     const onBgChange = (e) => {
         const { files } = e.target;
         setBgImage(files);
+        setBgUrl(URL.createObjectURL(e.target.files[0]));
     }
     const onChangeOverlaycolor = (e) => {
         setOverlayColor(e.target.value);
@@ -78,7 +84,7 @@ const LandingScreen = (props) => {
                 {/* <form method="post" enctype="multipart/form-data"> */}
                 <div className="col-md-12">
                     <div className="row">
-                        <div className="col-md-7">
+                        <div className="col-md-8">
                             <div className="upload-doc-block">                                                
                                 <h2>1. Upload Logo</h2>
                                 <p>Upload your logo in high resolution, preferably using a transparent background file in PNG format</p>
@@ -149,8 +155,17 @@ const LandingScreen = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-5">
-                            <img src={startscreen} />
+                        <div className="col-md-4">
+                            <div className="livebg">
+                                <img src={startscreen} />
+                                {/* {FileUrl && <ImageThumb image={selectedFile} />} */}
+                                <img className="selectedimage" src={FileUrl} />
+                                <img className="selectedbgimage" src={bgImageUrl} />
+                                <div className={overlaycolor} id="overlaycolor"></div>
+                                <div class="livebutton">
+                                    <button class="download-btn gradien-transparent-bg"><img src={liveicon} />Live Page</button>
+                                </div>
+                            </div>
                         </div>
                     </div>    
                 </div>

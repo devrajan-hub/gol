@@ -33,10 +33,13 @@ const Compaign = () => {
             })
         });
         const camdata = await result.json();
+        console.log('camdata',camdata);
         if(camdata.id){
             history.push('/camp-setting');
         }else{
-            window.alert('Invalid Registration');
+            const msg = camdata.message;
+            document.getElementById("errormsg").innerHTML = '<span class="alert alert-danger">'+ msg +'</span>';
+            // window.alert(camdata.message);
         }
     }
 
@@ -48,6 +51,7 @@ const Compaign = () => {
                 </div>
                 <div className="col-md-10">
                     <div className="col-md-12 newcampaign">
+                    <div class="errormsg" id="errormsg"></div>
                         <div className="golcontent text-center">
                                 <h2>Create campaign</h2>
                                 <form method="post" action="">

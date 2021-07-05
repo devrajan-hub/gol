@@ -32,6 +32,8 @@ import AddArticle from '../admin/dashboard/AddArticle';
 import SongsLibrary from '../admin/dashboard/SongsLibrary';
 import AddSound from '../admin/dashboard/AddSound';
 import FilterLibrary from '../admin/dashboard/FilterLibrary';
+import EditArticle from '../admin/dashboard/EditArticle';
+import CompanyDashboard from '../admin/dashboard/CompanyDashboard';
 
 
 const Routes = () => {
@@ -64,6 +66,8 @@ const Routes = () => {
                 <Route path='/songs-library' component={SongsLibrary} />
                 <Route path='/add-newsound' component={AddSound} />
                 <Route path='/filter-library' component={FilterLibrary} />
+                <Route path='/edit-article' component={EditArticle} />
+                <Route path='/company-dashboard' component={CompanyDashboard} />
 
             </Switch>
         </section>    

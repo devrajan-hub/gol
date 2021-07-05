@@ -1,6 +1,15 @@
+h1,h2,h3,button{
+    font-family: Mulish;
+    font-style: normal;
+    font-weight: bold;
+}
+p,span,li{
+    font-family: Mulish;
+}
 .mainhedaer{
     margin: 20px 0 10px;
 }
+
 .login-container,.register-container{
     width:80%;
     margin:0 auto;
@@ -112,7 +121,7 @@ textarea{
 .planname h2{
     font-size: 24px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
     line-height: 30px;
     letter-spacing: 0em;
     text-align: center;
@@ -121,7 +130,7 @@ textarea{
 .planprice .pricesymble{
     font-size: 42px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 53px;
     letter-spacing: 0em;
     text-align: center;
@@ -129,7 +138,7 @@ textarea{
 .planprice .price{
     font-size: 72px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 0px;
     letter-spacing: 0em;
     text-align: center;
@@ -254,13 +263,17 @@ Width: 180px;
 }
 .sidebar-menu ul li a{
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     font-size: 17px;
     line-height: 21px;
     color: #000;
 }
 .sidebar-menu ul li:hover a{
     color: #8354FF;
+}
+.url-design-block{
+    padding-top:20px;
+    padding-bottom:20px;
 }
 .sidebar h3{
     font-style: normal;
@@ -286,6 +299,34 @@ Width: 180px;
 .dashboard-content{
     padding: 18px 15px 0;
 }
+.dashboard-heading{
+    border-bottom: 2px solid #C1C5E0;
+}
+.golbutton{
+    position:absolute;
+    bottom:18%;
+}
+.livebutton button{
+    width: 100%;
+}
+.livebutton{
+    position: relative;
+    padding: 10px;
+    margin-top: 17px;
+    width: 100%;
+    float: left;
+}
+.check-datacapture,.data-capture,.datcapturebutton{
+    width:90%;
+}
+.livebg{
+    background: #F5F6FD;
+    border-radius: 40px;
+    padding: 25px;
+    /* padding-bottom: 25px; */
+    display: inline-block;
+    position:relative;
+}
 .dashboard-content h1{
     font-style: normal;
     font-weight: bold;
@@ -293,7 +334,6 @@ Width: 180px;
     line-height: 35px;
     color: #000000;
     text-align: left;
-    border-bottom: 2px solid #C1C5E0;
     padding-bottom: 15px;
 }
 .bottommenu li span{
@@ -442,7 +482,7 @@ Width: 180px;
 #progressbar li {
     list-style-type: none;
     font-size: 15px;
-    width: 25%;
+    width: 23%;
     float: left;
     position: relative;
     font-weight: 400
@@ -505,7 +545,8 @@ Width: 180px;
     background-color: #2F8D46
 }
 .customize-landing{
-    width:60%;
+    /* width:60%; */
+    width:75%;
     margin:0 auto;
 }
 .upload-block,.bg-image{
@@ -597,7 +638,7 @@ Width: 180px;
     height: 30px;
 }
 .upload-doc-block{
-    width:100%;
+    width:90%;
 }
 .overlay-option ul{
     padding:0px;
@@ -669,9 +710,33 @@ Width: 180px;
     border-bottom: 1px solid #CBCDE3;
     margin-bottom: 15px;
     padding-bottom: 15px;
+    margin-top: 30px;
+    width:85%;
 }
-.heading-block,.section-padding{
+/* .heading-block,.section-padding{ */
+.section-padding{
     padding: 18px 15px 0;
+}
+.backbutton{
+    float: left !important;
+    position: relative !important;
+    text-align: left;
+    width: 5% !important;
+}
+.backbutton a{
+    position: relative;
+    top: 12px;
+    color: #989CC7;
+    font-size: 16px;
+    line-height: 12px;
+}
+.backbutton img{
+    padding: 0px 4px 0 0;
+    width: auto;
+    max-width: 18px;
+    position: relative;
+    top: -2px;
+    max-height: 14px
 }
 .heading-block h1{
     font-style: normal;
@@ -680,8 +745,8 @@ Width: 180px;
     line-height: 35px;
     color: #000000;
     text-align: left;
-    border-bottom: 2px solid #C1C5E0;
-    padding-bottom: 15px;
+    /* padding-bottom: 15px; */
+    float:left;
 }
 .heading-sound-block h2{
     font-weight: bold;
@@ -689,9 +754,17 @@ Width: 180px;
     line-height: 35px;
     color: #000000;
     text-align: left;
+    float:left;
+}
+.heading-block{
+    width:100%;
+    float:left;
+    border-bottom: 2px solid #C1C5E0;
+    margin-bottom: 25px;
 }
 .filter{
-    padding-top: 50px;
+    padding-top: 10px;
+    clear:both;
 }
 .filter_image{
     background: #E6E7FD;
@@ -1611,6 +1684,7 @@ input::placeholder {
     width: 100%;
     float: left;
     padding: 25px 0 15px;
+    /* padding: 3px 0 15px; */
     border-bottom: 1px solid #C1C5E0;
 }
 .headingblock h1{
@@ -1620,6 +1694,10 @@ input::placeholder {
     font-size: 28px;
     line-height: 1;
     color: #000000;
+}
+.company-dashboard .headingblock h1{
+    border-bottom: 0px;
+    margin-bottom: 0px;
 }
 .closebtn{
     float: right;
@@ -2215,3 +2293,64 @@ input::placeholder {
   .hideelement{
       display:none;
   }
+  .selectplan{
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    color:#000;
+}
+.heading-sound-block{
+    width: 100%;
+    float: left;
+    border-bottom: 2px solid #C1C5E0;
+}
+.tab-design{
+    clear:both;
+}
+.closebtn{
+    cursor:pointer;
+}
+.resources-dashboard{
+    padding: 18px 15px 0;
+}
+.selectedimage{
+    width: auto;
+    max-width: 100px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: 0 auto;
+    top: 100px;
+    z-index: 999999999;
+}
+.selectedbgimage{
+    width: 205px;
+    /* max-width: 200px; */
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    position: absolute;
+    top: 40px;
+    border-radius: 25px;
+}
+#overlaycolor{
+    width: 73%;
+    z-index: 9999999;
+    text-align: center;
+    position: absolute;
+    height: 74%;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 38px;
+    border-radius: 30px;
+}
+.livebg .white{
+    background: rgba(255,255,255,.5);
+}
+.livebg .black{
+    background-color: rgba(0,0,0,0.5);
+}

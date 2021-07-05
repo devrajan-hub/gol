@@ -26,7 +26,9 @@ const Customizelanding = (props) =>{
                     <Sidebar />
                 </div>
                 <div className="col-md-10">
+                    
                     <ul id="progressbar">
+                        <li class="backbutton"><Link to={{pathname:'/camp-setting', data: campaignId}}><img src={arrow} />Back</Link></li>
                         <li class="active" id="step1"><strong>Landing screen</strong></li>
                         <li id="step2"><strong>Branded GOL</strong></li>
                         <li id="step3"><strong>Data capture</strong></li>
@@ -38,7 +40,7 @@ const Customizelanding = (props) =>{
                                 <LandingScreen campid={campaignId} />    
                                 <BrandedGol campid={campaignId} />
                                 <DataCapture campid={campaignId} />
-                                <PublishUrl campid={campaignId} />                         
+                                <PublishUrl campid={campaignId} />
                             </form>    
                         </div>
                     </div>

@@ -1,10 +1,31 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Sidebar from '../Sidebar';
 import {Navlink,Link} from 'react-router-dom';
 import defaultimage from '../../../assets/images/default-image.jpg';
 import addicon from '../../../assets/images/plus_icon.svg';
+import dateFormat from 'dateformat';
 
 const Marketing = () => {
+
+    const [items, setItems] = useState([]);
+    useEffect(() => {
+        fetch("https://viddey-backend.herokuapp.com/api/v1/articles", {
+            "method": "GET",
+            "headers": {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                // 'Accept': 'application/json',
+                // 'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            console.log('marketingresponse',response);
+            setItems(response.payload);
+        })
+        .catch(err => { console.log(err); 
+        });
+    });
+
     var indents = [];
     for (var i = 0; i < 8; i++) {
         indents.push(<div className='col-md-3 marketing-block' key={i}>
@@ -40,7 +61,21 @@ const Marketing = () => {
                                     </div>
                                 </div>
                             </div>
-                            {indents}</div>
+                            {items.map(item => (
+                                // datee = item.createdOn;
+                                <div className='col-md-3 marketing-block' key={i}>
+                                    <div className="resource_block">
+                                        <img src={(item.coverImageURL) ? item.coverImageURL : defaultimage} />
+                                        <div className="resources">
+                                            <span>{dateFormat(item.createdOn, "d.m.yyyy")}</span>
+                                            <h2>{item.title}</h2>
+                                            <Link to={{pathname: "/edit-article", state: {article:item}}} className="edit-page">Edit</Link>
+                                        </div>
+                                    </div>
+                                </div>                  
+                            ))}
+                            {/* {indents} */}
+                        </div>
                     </div>
                 </div>    
             </div>    
