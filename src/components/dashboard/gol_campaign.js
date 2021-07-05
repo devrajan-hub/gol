@@ -10,6 +10,7 @@ import share from '../../../src/assets/images/share.svg';
 import copy from '../../../src/assets/images/copy.svg';
 import startscreen from '../../../src/assets/images/start_screen.png';
 import Preview from '../../../src/assets/images/Preview.svg';
+import axios from 'axios';
 
 const Golcampaign = (props) => {
     var camprowId =  props.campid;
@@ -19,7 +20,6 @@ const Golcampaign = (props) => {
     const startLanding = () =>{
         window.location.href = '/custom-landing/'+ props.campid;
     }
-
     useEffect(() => {
         fetch('https://viddey-backend.herokuapp.com/api/v1/tickets', {
             "method": "GET",
@@ -35,23 +35,24 @@ const Golcampaign = (props) => {
         .catch(err => { console.log(err); 
         });
     })
-
     useEffect(() => {
-        fetch(`https://viddey-backend.herokuapp.com/api/v1/campaigns/${camprowId}`, {
-            "method": "GET",
-            "headers": {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }
+        const headers = {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        };
+        axios.get(`https://viddey-backend.herokuapp.com/api/v1/campaigns/${camprowId}`, { headers }).then(res =>{
+            console.log('pakages',res);
+            setItems(res.payload);
+            setItemsPage(res.payload.pageName);
         })
-        .then(response => response.json())
-        .then(response => {
-            setItems(response.payload);
-            setItemsPage(response.payload.pageName);
+        .catch(err => {
+            console.log('errresulkt',err);
         })
-        .catch(err => { console.log(err); 
-        });
     })
-    console.log('camprowIditems',items);
+    
+    
+
+    
+    console.log('camprowIditems',packageName);
     // console.log('camprowIditems',items.brandedGOL.filter.name);
     return(
         <div className="gol-campaign">
@@ -133,9 +134,11 @@ const Golcampaign = (props) => {
                         <div className="col-md-6 gol-feature-text">        
                             <h2>Branded GOL</h2>
                             <span>Filter:</span>
-                            <p>{(items) ? items.brandedGOL.filter.name :''}</p>
+                            {/* <p>{(items) ? items.brandedGOL.filter.name :''}</p> */}
+                            <p>My Filter</p>
                             <span>Sound::</span>
-                            <p>{items.brandedGOL.sound.name}</p>
+                            {/* <p>{items.brandedGOL.sound.name}</p> */}
+                            <p>Mp.4</p>
                             <NavLink to="/" className="editlink">Edit</NavLink>
                         </div>
                     </div>
