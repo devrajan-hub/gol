@@ -9,6 +9,10 @@ p,span,li{
 .mainhedaer{
     margin: 20px 0 10px;
 }
+.single-marketing .marketing-img img{
+    width:auto;
+    max-width: 100%;
+}
 
 .login-container,.register-container{
     width:80%;
@@ -659,7 +663,7 @@ Width: 180px;
     float: left;
     padding: 0 10px 0 0;
 }
-.background-image,.uploadsoud{
+.uploadsoud{
     display: none;
 }
 .gol-image,.gol-content{
@@ -1288,7 +1292,11 @@ Width: 180px;
     border-radius: 38px;
 }
 .campaign-block{
-    padding-bottom: 30px;
+    padding-bottom: 15px;
+    /* width: 0 !important; */
+    max-width: 16%;
+    margin-left: 0px !important;
+    padding-left: 0px;
 }
 .gol-capm-gallery{
     padding-top: 25px;
@@ -2348,9 +2356,62 @@ input::placeholder {
     top: 38px;
     border-radius: 30px;
 }
-.livebg .white{
+.golcamp{
+    position:relative;
+}
+.livebg .white, .golcamp .white{
     background: rgba(255,255,255,.5);
 }
-.livebg .black{
+.livebg .black, .golcamp .black{
     background-color: rgba(0,0,0,0.5);
+}
+.gol-feature .golcamp #overlaycolor{
+    width: 90%;
+    height: 96%;
+    top: 8px;
+}
+.gol-feature .golcamp .selectedbgimage{
+    width: 188px;
+    top: 10px;
+}
+.gol-feature .golcamp .selectedimage{
+    width:100px !important;
+    top: 55px;
+}
+.golbutton{
+    width:85%;
+}
+.golcampaim-data{
+    padding-bottom: 20px;
+    clear: both;
+    width: 100%;
+    float: left;
+}
+.s_block.selected{
+    border: 1px solid #8354FF;
+}
+.grurl{
+    position: relative;
+}
+.grurl input{
+    width: 90px;
+    border-right: 0;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    padding-right: 0px;
+}
+.grurl p{
+    position: absolute;
+    top: 0px;
+    left: 89px;
+    margin: 0;
+    font-weight: 500;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    padding: 0.45rem .75rem;
+    border-left: 0px;
+    width: 75%;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    padding-left: 0px;
 }

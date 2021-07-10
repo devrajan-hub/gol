@@ -1,7 +1,9 @@
 import React,{useEffect, useState} from 'react';
 import { NavLink,Link } from 'react-router-dom';
-const Soundslist = () => {
-
+const Soundslist = (props) => {
+    
+    var soundId = (props.state) ? props.state.soundid : '';
+    console.log('soundprop',props);
     const [items, setItems] = useState([]);
     const [soundid, setSoundId] = useState([]);
     useEffect(() => {        
@@ -23,8 +25,10 @@ const Soundslist = () => {
     })
     
     const selectSound = (e) => {
+       
         var elem = document.getElementsByClassName("s_block"); 
-        var dataid = elem[0].getAttribute('data-id');
+        // var dataid = elem[0].getAttribute('data-id');
+        var dataid =  e.target.dataset.id;
         console.log('dataid',dataid);
         elem[0].className += " activeblock";
         setSoundId(dataid); 
@@ -69,7 +73,7 @@ const Soundslist = () => {
                     <div className="row">
                     {items.map(item => (
                         <div className='col-md-3 sound-block'>
-                            <div className="s_block" id="soundblock" data-id={item.id} onClick={selectSound}>
+                            <div className={(item.id == soundId) ? 's_block selected' :'s_block'} id="" data-id={item.id} onClick={selectSound}>
                                 <h2>{item.name}</h2>
                                 <p>{item.category}</p>
                                 <NavLink to={item.soundURL} className="select-sound">Select</NavLink>

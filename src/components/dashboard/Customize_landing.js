@@ -17,8 +17,10 @@ import DataCapture from './DataCapture';
 import PublishUrl from './PublishUrl';
 // import {addincome} from '../../assets/js/custom'
 const Customizelanding = (props) =>{
-    var campaignId = props.match.params.id;
-    // console.log('sadgesesgr',props.match.params.id);
+    // var campaignId = props.match.params.id;
+    var campaignId = props.location.campId;
+    var editpage = (props.location.block) ? props.location.block :'';
+    console.log('sadgesesgr',props);
     return(
         <div className="col-md-12">
             <div className="row">
@@ -37,10 +39,10 @@ const Customizelanding = (props) =>{
                     <div class="customize-landing">
                         <div class="custom-landing-fields">
                             <form id="form" enctype="multipart/form-data">
-                                <LandingScreen campid={campaignId} />    
-                                <BrandedGol campid={campaignId} />
+                                <LandingScreen state={{campid:campaignId, editdata:editpage}} />    
+                                {/* <BrandedGol campid={campaignId} />
                                 <DataCapture campid={campaignId} />
-                                <PublishUrl campid={campaignId} />
+                                <PublishUrl campid={campaignId} /> */}
                             </form>    
                         </div>
                     </div>

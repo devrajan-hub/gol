@@ -3,9 +3,13 @@ import { NavLink,Link, useHistory} from 'react-router-dom';
 import Sidebar from '../dashboard/Sidebar';
 import closeicon from '../../assets/images/close_icon.svg';
 
-const Addfilter = () => {
+const Addfilter = (props) => {
+    console.log('propsdgsdg',props);
+    var filterid = (props.location.filterdata != null) ? props.location.filterdata.filter.id : '';
+    var camprowId = (props.location.filterdata) ? props.location.filterdata.id : '';
+    var camprowId = (props.location.campid) ? props.location.campid : camprowId;
+    console.log('propscscamprowId',camprowId);
     let history = useHistory();
-
     const [items, setItems] =  useState([]);
     useEffect(() => {        
         fetch("https://viddey-backend.herokuapp.com/api/v1/filters", {
@@ -51,14 +55,14 @@ const Addfilter = () => {
                     <div className="heading-block">
                         <h1>Add filter</h1> 
                         <div className="closebtn">
-                            <Link to="/" onClick={history.goBack}><img src={closeicon} /></Link>
+                            <Link to={{pathname:'/branded-gol', campid:camprowId, block:''}}><img src={closeicon} /></Link>
                         </div>
                     </div>
                     </div>
                     <div className="filter col-md-12">
                         <div className="row">
                         {items.map(item => (
-                            <div className='col-md-2 filter-block' key={item.id}>
+                            <div className={(item.id == filterid) ? 'col-md-2 filter-block selected' : 'col-md-2 filter-block' } key={item.id}>
                                 <div className="f_block" data-id={item.id} onClick={selectFilter}>
                                     <div className="filter_image"></div>
                                     <h4>{item.name}</h4>

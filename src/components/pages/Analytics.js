@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Sidebar from '../dashboard/Sidebar';
-
+import $ from'jquery';
 const Analytics = () => {
+
     return(
         <div className="col-md-12">
             <div className="analytic-data">                    
                 <h3>You have 3 campaigns:</h3>
                 <div className="row">
+                <div id="chartContainer"></div>
                     <div className="col-md-12 campaign-table">
                     <table class="table table-bordered">
                         <thead>

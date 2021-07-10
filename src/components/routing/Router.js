@@ -21,6 +21,9 @@ import golcampaign from '../dashboard/gol_campaign';
 import customlanding from '../dashboard/Customize_landing';
 import Addfilter from '../dashboard/Add_filter';
 import Addsound from '../dashboard/Add_sound';
+import BrandedGol from '../dashboard/BrandedGol'
+import DataCapture from '../dashboard/DataCapture';
+import PublishUrl from '../dashboard/PublishUrl';
 
 /*--ADMIN--*/
 
@@ -47,7 +50,11 @@ const Routes = () => {
                 <Route path='/campaign' component={Campaign} />
                 <Route path='/camp-setting' component={Campaignsetting} />
                 <Route path='/golcampaign' component={golcampaign} />
-                <Route path='/custom-landing/:id' component={customlanding} />
+                {/* <Route path='/custom-landing/:id' component={customlanding} /> */}
+                <Route path='/custom-landing' component={customlanding} />
+                <Route path='/branded-gol' component={BrandedGol} />
+                <Route path='/data-capture' component={DataCapture} />
+                <Route path='/publish-url' component={PublishUrl} />
                 <Route path='/add-filter' component={Addfilter} />
                 <Route path='/add-sound' component={Addsound} />
                 <Route path='/marketing-resources' component={MarketingResources} />

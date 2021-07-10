@@ -1,5 +1,6 @@
 import $ from'jquery';
 import {CanvasJS} from  '../js/canvasjs.min.js';
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 
 $(document).ready(function () {
     var currentGfgStep, nextGfgStep, previousGfgStep;

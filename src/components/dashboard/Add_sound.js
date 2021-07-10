@@ -6,7 +6,11 @@ import Uploadsound from '../dashboard/Upload_sound';
 import closeicon from '../../assets/images/close_icon.svg';
 
 
-const Addsound = () => {
+const Addsound = (props) => {
+    var camprowId = (props.location.sounddata) ? props.location.sounddata.id : '';
+    var soundid = (props.location.sounddata) ? props.location.sounddata.sound.id : '';
+    var camprowId = (props.location.campid) ? props.location.campid : camprowId;
+    console.log('propsww',camprowId);
     let history = useHistory();
     return(
         <div className="col-md-12">
@@ -19,7 +23,8 @@ const Addsound = () => {
                     <div className="heading-sound-block">
                         <h2>Add sound</h2> 
                         <div className="closebtn">
-                            <Link to="/" onClick={history.goBack}><img src={closeicon} /></Link>
+                            {/* <Link to="/" onClick={history.goBack}><img src={closeicon} /></Link> */}
+                            <Link to={{pathname:'/branded-gol', campid:camprowId, block:''}}><img src={closeicon} /></Link>
                         </div>
                     </div>
                     <div className="tab-design">
@@ -33,7 +38,7 @@ const Addsound = () => {
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="soundlibrary" role="tabpanel" aria-labelledby="home-tab">
-                                <Soundslist />           
+                                <Soundslist state={{soundid:soundid}} />           
                             </div>
                             <div class="tab-pane fade" id="uploadsound" role="tabpanel" aria-labelledby="profile-tab">
                                 <Uploadsound />

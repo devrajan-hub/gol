@@ -1,5 +1,9 @@
 import React,{Component,useState, useEffect} from 'react';
 import { NavLink,Link,useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import {getCampaignById} from '../../actions/campaignAction';
 // import { useParams } from "react-router";
 import Sidebar from './Sidebar';
 import addigolillustration from '../../../src/assets/images/gol_illustration.svg';
@@ -10,16 +14,62 @@ import share from '../../../src/assets/images/share.svg';
 import copy from '../../../src/assets/images/copy.svg';
 import startscreen from '../../../src/assets/images/start_screen.png';
 import Preview from '../../../src/assets/images/Preview.svg';
-import axios from 'axios';
 
+
+// var  campaignlist = [];
+// const Golcampaign = ({campaign:{campaignlist}, getCampaignById, campid}) => {
 const Golcampaign = (props) => {
+    // console.log('propsdsgsdgdf',props);
+    // var camprowId =  campid;
     var camprowId =  props.campid;
+    // useEffect(() => {
+	// 	getCampaignById(camprowId);
+	// }, [camprowId, getCampaignById]);
+    // console.log('campaigndfsdf',camprowId);    
     const [itemsPage, setItemsPage] = useState([]);
     const [items, setItems] = useState([]);
+    const [landingItems, setLandingItems] = useState([]);
     const [packageName, setIPackageName] = useState();
     const startLanding = () =>{
         window.location.href = '/custom-landing/'+ props.campid;
     }
+    
+    useEffect(() => {
+        fetch(`https://viddey-backend.herokuapp.com/api/v1/campaigns/${camprowId}`, {
+            "method": "GET",
+            "headers": {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            // console.log('response',response.payload.id);
+            if(camprowId == response.payload.id){
+                setItems(response.payload);
+                setItemsPage(response.payload.pageName);
+            }
+        })
+        .catch(err => { console.log(err); 
+        });
+    }, [camprowId])
+
+    useEffect(() => {
+        fetch(`https://viddey-backend.herokuapp.com/api/v1/landing-screens/${camprowId}`, {
+                "method": "GET",
+                "headers": {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                }
+            })
+            .then(response => response.json())
+            .then(response => {
+                // console.log('response',response);
+                setLandingItems(response.payload);
+            })
+            .catch(err => { console.log(err); 
+            });
+    }, [camprowId])
+    
+    console.log('responselandingItems',landingItems);
     useEffect(() => {
         fetch('https://viddey-backend.herokuapp.com/api/v1/tickets', {
             "method": "GET",
@@ -35,24 +85,9 @@ const Golcampaign = (props) => {
         .catch(err => { console.log(err); 
         });
     })
-    useEffect(() => {
-        const headers = {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        };
-        axios.get(`https://viddey-backend.herokuapp.com/api/v1/campaigns/${camprowId}`, { headers }).then(res =>{
-            console.log('pakages',res);
-            setItems(res.payload);
-            setItemsPage(res.payload.pageName);
-        })
-        .catch(err => {
-            console.log('errresulkt',err);
-        })
-    })
-    
-    
 
     
-    console.log('camprowIditems',packageName);
+    console.log('camprowIditems',landingItems);
     // console.log('camprowIditems',items.brandedGOL.filter.name);
     return(
         <div className="gol-campaign">
@@ -66,8 +101,8 @@ const Golcampaign = (props) => {
                             <div className="campaign-detail">
                                 <h2>Landing screen</h2>
                                 <p>Customize landing screen</p>
-                                {/* <NavLink to='/custom-landing' className="btn btn-primary btn-gradient btn-start">Start</NavLink> */}
-                                <button type="submit" onClick={startLanding} className="btn btn-primary btn-gradient btn-start" >Start</button>
+                                <NavLink to={{ pathname: '/custom-landing', campId: camprowId }} className="btn btn-primary btn-gradient btn-start">Start</NavLink>
+                                {/* <button type="submit" onClick={startLanding} className="btn btn-primary btn-gradient btn-start" >Start</button> */}
                             </div>
                         </div>
                     </div>
@@ -92,7 +127,7 @@ const Golcampaign = (props) => {
                     <div className={packageName == 'PRO' ? 'col-md-6' :'hideelement'}>
                         <div className="qr-url-details">
                             <div className="qr-image">        
-                                <img src={qrcode} />
+                                <img src={(items.qrcodeImageURL != null) ? items.qrcodeImageURL : qrcode} />
                             </div>
                             <div className="qr-heading">        
                                 <h4>QR code link:</h4>
@@ -118,13 +153,18 @@ const Golcampaign = (props) => {
                     </div>
                     <div className="col-md-12 gol-layout">
                     <div className="col-md-6 gol-feature gol-feature-layout-left">
-                        <div className="col-md-6">        
-                            <img src={startscreen} />
+                        <div className="col-md-6">
+                            <div class="golcamp">        
+                                <img src={startscreen} />
+                                <img className="selectedimage" src={(landingItems != null) ? landingItems.logoURL : ''} />
+                                <img className="selectedbgimage" src={(landingItems != null) ? landingItems.backgroundImageURL : ''} />
+                                <div className={(landingItems != null) ? ((landingItems.overlayColor != null) ? landingItems.overlayColor.hex:'') : ''} id="overlaycolor"></div>
+                            </div>
                         </div>
                         <div className="col-md-6 gol-feature-text">        
                             <h2>Landing screen & Data capture</h2>
                             <p>Customized landing screen</p>
-                            <NavLink to="/" className="editlink">Edit</NavLink>
+                            <NavLink to={{pathname:'/custom-landing', campId: ((landingItems != null) ? landingItems.id :''), block:'edit'}} className="editlink">Edit</NavLink>
                         </div>
                     </div>
                     <div className="col-md-6 gol-feature gol-feature-layout-right">
@@ -134,12 +174,12 @@ const Golcampaign = (props) => {
                         <div className="col-md-6 gol-feature-text">        
                             <h2>Branded GOL</h2>
                             <span>Filter:</span>
-                            {/* <p>{(items) ? items.brandedGOL.filter.name :''}</p> */}
-                            <p>My Filter</p>
+                            <p>{(items.brandedGOL != null) ? items.brandedGOL.filter.name :'My Filter'}</p>
+                            {/* <p>My Filter</p> */}
                             <span>Sound::</span>
-                            {/* <p>{items.brandedGOL.sound.name}</p> */}
-                            <p>Mp.4</p>
-                            <NavLink to="/" className="editlink">Edit</NavLink>
+                            <p>{(items.brandedGOL != null) ? items.brandedGOL.sound.name :'Mp.4'}</p>
+                            {/* <p>Mp.4</p> */}
+                            <NavLink to={{pathname:'/branded-gol', campid: items.id, block:'edit', campaigns:items}} className="editlink">Edit</NavLink>
                         </div>
                     </div>
                     </div>
@@ -149,4 +189,20 @@ const Golcampaign = (props) => {
     )
 }
 
-export default Golcampaign;
+Golcampaign.propTypes = {
+	campaign: PropTypes.object.isRequired,
+	getCampaignById: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+	campaign: state.campaign
+});
+
+const mapDispatchToProps = {
+	getCampaignById
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Golcampaign);
+
+
+// export default Golcampaign;
